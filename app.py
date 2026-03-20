@@ -16,23 +16,20 @@ def get_setting(secret_key, env_key, default=None):
 @st.cache_resource
 def connect_db():
     try:
-        db_user = get_setting("DB_USER", "DB_USER")
-        db_password = get_setting("DB_PASSWORD", "DB_PASSWORD")
-        db_host = get_setting("DB_HOST", "DB_HOST", "localhost")
-        db_port = get_setting("DB_PORT", "DB_PORT", "5432")
-        db_name = get_setting("DB_NAME", "DB_NAME", "postgres")
+        db_user = get_setting("PGUSER", "PGUSER")
+        db_password = get_setting("PGPASSWORD", "PGPASSWORD")
+        db_host = get_setting("PGHOST", "PGHOST")
+        db_port = "5432"
+        db_name = get_setting("PGDATABASE", "PGDATABASE")
 
         missing = [
-            key
-            for key, value in {
-                "DB_USER": db_user,
-                "DB_PASSWORD": db_password,
-            }.items()
-            if not value
+            key for key, value in {
+                "PGUSER": db_user, "PGPASSWORD": db_password, "PGHOST": db_host
+            }.items() if not value
         ]
+        
         if missing:
             st.error(f"Missing required database settings: {', '.join(missing)}")
-            st.info("Set them in .streamlit/secrets.toml or as environment variables.")
             return None
 
         engine = create_engine(
@@ -43,6 +40,7 @@ def connect_db():
                 host=db_host,
                 port=int(db_port),
                 database=db_name,
+                query={"sslmode": "require"}
             )
         )
         return engine
@@ -103,7 +101,7 @@ if option == "1. View Flight Passenger Roster":
 
 elif option == "2. Book a New Flight":
     st.subheader("Book a New Flight")
-    st.markdown("If the passenger is new, we will automatically register them!")
+    st.markdown("Book a flight to your next destination now! Please fill in the details below. If you're a new passenger, make sure to provide your name and phone number as well.")
     
     with st.form("booking_form"):
         passport = st.text_input("Passenger Passport Number:").strip().upper()
