@@ -4,7 +4,7 @@ from faker import Faker
 
 fake = Faker()
 
-# List of real US airports (code, name, state)
+# List of US airports 
 real_airports = [
     ("BHM", "Birmingham International Airport", "AL"), ("DHN", "Dothan Regional Airport", "AL"),
     ("HSV", "Huntsville International Airport", "AL"), ("MOB", "Mobile", "AL"), ("MGM", "Montgomery", "AL"),
