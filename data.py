@@ -86,7 +86,13 @@ with open('airport.csv', 'w', newline='', encoding='utf-8') as f:
         writer.writerow([code, name, state, "USA"])
 
 # Generate Aircraft Tail Numbers
-aircrafts = [f"N{fake.unique.random_number(digits=3)}{fake.unique.random_letter()}{fake.unique.random_letter()}" for _ in range(150)]
+aircrafts = []
+existing_tail_numbers = set()
+while len(aircrafts) < 150:
+    tail = f"N{random.randint(100, 999)}{random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ')}{random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ')}"
+    if tail not in existing_tail_numbers:
+        existing_tail_numbers.add(tail)
+        aircrafts.append(tail)
 with open('aircraft.csv', 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
     for tail in aircrafts:
@@ -107,15 +113,42 @@ with open('employee.csv', 'w', newline='', encoding='utf-8') as f:
     for e in employees:
         writer.writerow([e, fake.name(), random.choice(['Pilot', 'Flight Attendant', 'Ground Crew']), random.randint(50000, 150000)])
 
+# Generate Real Airlines
+real_airlines = [
+    ("DL", "Delta Air Lines"), ("AA", "American Airlines"), 
+    ("UA", "United Airlines"), ("WN", "Southwest Airlines"), 
+    ("B6", "JetBlue Airways"), ("AS", "Alaska Airlines"), ("NK", "Spirit Airlines"), ("F9", "Frontier Airlines"),
+    ("G4", "Allegiant Airlines"), ("SY", "Sun Country Airlines")
+]
+airline_codes = [a[0] for a in real_airlines]
+
+with open('airline.csv', 'w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    for code, name in real_airlines:
+        writer.writerow([code, name])
+
 # Generate Flights 
-flights = [f"FL{i:04d}" for i in range(1, 501)]
+flights = []
+existing_flight_nums = set()
+
 with open('flight.csv', 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
-    for f_num in flights:
+    for _ in range(500):
+        airline = random.choice(airline_codes)
+        
+        while True:
+            f_num = f"{airline}{random.randint(1000, 9999)}"
+            if f_num not in existing_flight_nums:
+                existing_flight_nums.add(f_num)
+                flights.append(f_num)
+                break
+                
         origin = random.choice(airports)
         dest = random.choice(airports)
-        while dest == origin: dest = random.choice(airports)
-        writer.writerow([f_num, fake.date_time_this_year(), random.choice(['Scheduled', 'Delayed', 'On Time']), random.choice(aircrafts), origin, dest])
+        while dest == origin: 
+            dest = random.choice(airports)
+            
+        writer.writerow([f_num, fake.date_time_this_year(), random.choice(['Scheduled', 'Delayed', 'On Time']), random.choice(aircrafts), origin, dest, airline])
 
 # Generate Bookings
 with open('booking.csv', 'w', newline='', encoding='utf-8') as f:
