@@ -64,7 +64,7 @@ option = st.sidebar.radio(
     "Select an Operation:",
     ("1. View Flight Passenger Roster", 
      "2. Book a New Flight", 
-     "3. Busiest Departure States", 
+     "3. Busiest Airports", 
      "4. Retrieve Flight Manifest", 
      "5. Airline Fleet Statistics",)
 )
@@ -75,7 +75,7 @@ def run_query(query, params=None):
             result = conn.execute(text(query), params or {})
             rows = result.fetchall()
             df = pd.DataFrame(rows, columns=result.keys())
-        st.dataframe(df, width=True)
+        st.dataframe(df, width='stretch')
     except Exception as e:
         st.error(f"Query Error: {e}")
 
@@ -90,7 +90,7 @@ if option == "1. View Flight Passenger Roster":
         flight_num = st.selectbox("Select Flight Number:", flight_numbers['flightnum'].tolist())
         if st.button("Search"):
             query = """
-                SELECT p.Name, p.Phone, b.SeatNum 
+                SELECT p.Name AS "Passenger Name", p.Phone AS "Phone Number", b.SeatNum AS "Seat Number" 
                 FROM Passenger p
                 JOIN Booking b ON p.PassportNum = b.PassportNum
                 WHERE b.FlightNum = :flight_num
@@ -119,15 +119,18 @@ elif option == "2. Book a New Flight":
             except Exception as e:
                 st.error(f"❌ Booking failed. Please ensure Passport and Flight exist. Error: {e}")
 
-elif option == "3. Busiest Departure States":
-    st.subheader("Top 5 Busiest Departure States")
+elif option == "3. Busiest Airports":
+    st.subheader("📊 Top 5 Busiest Airports (By Passenger Traffic)")
     if st.button("Load Statistics"):
         query = """
-            SELECT a.State, COUNT(f.FlightNum) as "Total Departures"
+            SELECT a.IATACode as "Airport Code", 
+                   a.City, 
+                   COUNT(b.PassportNum) as "Total Transiting Passengers"
             FROM Airport a
-            JOIN Flight f ON a.IATACode = f.OriginCode
-            GROUP BY a.State
-            ORDER BY "Total Departures" DESC
+            JOIN Flight f ON a.IATACode = f.OriginCode OR a.IATACode = f.DestCode
+            JOIN Booking b ON f.FlightNum = b.FlightNum
+            GROUP BY a.IATACode, a.City
+            ORDER BY "Total Transiting Passengers" DESC
             LIMIT 5;
         """
         run_query(query)
