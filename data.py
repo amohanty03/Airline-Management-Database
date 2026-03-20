@@ -86,7 +86,7 @@ with open('airport.csv', 'w', newline='', encoding='utf-8') as f:
         writer.writerow([code, name, state, "USA"])
 
 # Generate Aircraft Tail Numbers
-aircrafts = [f"N{fake.unique.random_number(digits=3)}{fake.unique.random_letter(letter=2)}" for _ in range(150)]
+aircrafts = [f"N{fake.unique.random_number(digits=3)}{fake.unique.random_letter()}{fake.unique.random_letter()}" for _ in range(150)]
 with open('aircraft.csv', 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
     for tail in aircrafts:

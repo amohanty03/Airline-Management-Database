@@ -1,0 +1,189 @@
+BHM,Birmingham International Airport,AL,USA
+DHN,Dothan Regional Airport,AL,USA
+HSV,Huntsville International Airport,AL,USA
+MOB,Mobile,AL,USA
+MGM,Montgomery,AL,USA
+ANC,Anchorage International Airport,AK,USA
+FAI,Fairbanks International Airport,AK,USA
+JNU,Juneau International Airport,AK,USA
+FLG,Flagstaff,AZ,USA
+PHX,Phoenix Sky Harbor International Airport,AZ,USA
+TUS,Tucson International Airport,AZ,USA
+YUM,Yuma International Airport,AZ,USA
+FYV,Fayetteville,AR,USA
+LIT,Little Rock National Airport,AR,USA
+XNA,Northwest Arkansas Regional Airport,AR,USA
+BUR,Burbank,CA,USA
+FAT,Fresno,CA,USA
+LGB,Long Beach,CA,USA
+LAX,Los Angeles International Airport,CA,USA
+OAK,Oakland,CA,USA
+ONT,Ontario,CA,USA
+PSP,Palm Springs,CA,USA
+SMF,Sacramento,CA,USA
+SAN,San Diego,CA,USA
+SFO,San Francisco International Airport,CA,USA
+SJC,San Jose,CA,USA
+SNA,Santa Ana,CA,USA
+ASE,Aspen,CO,USA
+COS,Colorado Springs,CO,USA
+DEN,Denver International Airport,CO,USA
+GJT,Grand Junction,CO,USA
+PUB,Pueblo,CO,USA
+BDL,Hartford,CT,USA
+HVN,Tweed New Haven,CT,USA
+IAD,Washington Dulles International Airport,DC,USA
+DCA,Washington National Airport,DC,USA
+DAB,Daytona Beach,FL,USA
+FLL,Fort Lauderdale-Hollywood International Airport,FL,USA
+RSW,Fort Meyers,FL,USA
+JAX,Jacksonville,FL,USA
+EYW,Key West International Airport,FL,USA
+MIA,Miami International Airport,FL,USA
+MCO,Orlando,FL,USA
+PNS,Pensacola,FL,USA
+PIE,St. Petersburg,FL,USA
+SRQ,Sarasota,FL,USA
+TPA,Tampa,FL,USA
+PBI,West Palm Beach,FL,USA
+PFN,Panama City-Bay County International Airport,FL,USA
+ATL,Atlanta Hartsfield International Airport,GA,USA
+AGS,Augusta,GA,USA
+SAV,Savannah,GA,USA
+ITO,Hilo,HI,USA
+HNL,Honolulu International Airport,HI,USA
+OGG,Kahului,HI,USA
+KOA,Kailua,HI,USA
+LIH,Lihue,HI,USA
+BOI,Boise,ID,USA
+MDW,Chicago Midway Airport,IL,USA
+ORD,Chicago O'Hare International Airport,IL,USA
+MLI,Moline,IL,USA
+PIA,Peoria,IL,USA
+EVV,Evansville,IN,USA
+FWA,Fort Wayne,IN,USA
+IND,Indianapolis International Airport,IN,USA
+SBN,South Bend,IN,USA
+CID,Cedar Rapids,IA,USA
+DSM,Des Moines,IA,USA
+ICT,Wichita,KS,USA
+LEX,Lexington,KY,USA
+SDF,Louisville,KY,USA
+BTR,Baton Rouge,LA,USA
+MSY,New Orleans International Airport,LA,USA
+SHV,Shreveport,LA,USA
+AUG,Augusta,ME,USA
+BGR,Bangor,ME,USA
+PWM,Portland,ME,USA
+BWI,Baltimore,MD,USA
+BOS,Boston Logan International Airport,MA,USA
+HYA,Hyannis,MA,USA
+ACK,Nantucket,MA,USA
+ORH,Worcester,MA,USA
+BTL,Battlecreek,MI,USA
+DTW,Detroit Metropolitan Airport,MI,USA
+DET,Detroit,MI,USA
+FNT,Flint,MI,USA
+GRR,Grand Rapids,MI,USA
+AZO,Kalamazoo-Battle Creek International Airport,MI,USA
+LAN,Lansing,MI,USA
+MBS,Saginaw,MI,USA
+DLH,Duluth,MN,USA
+MSP,Minneapolis/St.Paul International Airport,MN,USA
+RST,Rochester,MN,USA
+GPT,Gulfport,MS,USA
+JAN,Jackson,MS,USA
+MCI,Kansas City,MO,USA
+STL,St Louis Lambert International Airport,MO,USA
+SGF,Springfield,MO,USA
+BIL,Billings,MT,USA
+LNK,Lincoln,NE,USA
+OMA,Omaha,NE,USA
+LAS,Las Vegas McCarran International Airport,NV,USA
+RNO,Reno-Tahoe International Airport,NV,USA
+MHT,Manchester,NH,USA
+ACY,Atlantic City International Airport,NJ,USA
+EWR,Newark International Airport,NJ,USA
+TTN,Trenton,NJ,USA
+ABQ,Albuquerque International Airport,NM,USA
+ALM,Alamogordo,NM,USA
+ALB,Albany International Airport,NY,USA
+BUF,Buffalo,NY,USA
+ISP,Islip,NY,USA
+JFK,John F Kennedy International Airport,NY,USA
+LGA,La Guardia Airport,NY,USA
+SWF,Newburgh,NY,USA
+ROC,Rochester,NY,USA
+SYR,Syracuse,NY,USA
+HPN,Westchester,NY,USA
+AVL,Asheville,NC,USA
+CLT,Charlotte/Douglas International Airport,NC,USA
+FAY,Fayetteville,NC,USA
+GSO,Greensboro,NC,USA
+RDU,Raleigh,NC,USA
+INT,Winston-Salem,NC,USA
+BIS,Bismark,ND,USA
+FAR,Fargo,ND,USA
+CAK,Akron,OH,USA
+CVG,Cincinnati,OH,USA
+CLE,Cleveland,OH,USA
+CMH,Columbus,OH,USA
+DAY,Dayton,OH,USA
+TOL,Toledo,OH,USA
+OKC,Oklahoma City,OK,USA
+TUL,Tulsa,OK,USA
+EUG,Eugene,OR,USA
+PDX,Portland International Airport,OR,USA
+HIO,Portland Hillsboro Airport,OR,USA
+SLE,Salem,OR,USA
+ABE,Allentown,PA,USA
+ERI,Erie,PA,USA
+MDT,Harrisburg,PA,USA
+PHL,Philadelphia,PA,USA
+PIT,Pittsburgh,PA,USA
+AVP,Scranton,PA,USA
+PVD,Providence - T.F. Green Airport,RI,USA
+CHS,Charleston,SC,USA
+CAE,Columbia,SC,USA
+GSP,Greenville,SC,USA
+MYR,Myrtle Beach,SC,USA
+PIR,Pierre,SD,USA
+RAP,Rapid City,SD,USA
+FSD,Sioux Falls,SD,USA
+TRI,Bristol,TN,USA
+CHA,Chattanooga,TN,USA
+TYS,Knoxville,TN,USA
+MEM,Memphis,TN,USA
+BNA,Nashville,TN,USA
+AMA,Amarillo,TX,USA
+AUS,Austin Bergstrom International Airport,TX,USA
+CRP,Corpus Christi,TX,USA
+DAL,Dallas Love Field Airport,TX,USA
+DFW,Dallas/Fort Worth International Airport,TX,USA
+ELP,El Paso,TX,USA
+HOU,Houston William B Hobby Airport,TX,USA
+IAH,Houston George Bush Intercontinental Airport,TX,USA
+LBB,Lubbock,TX,USA
+MAF,Midland,TX,USA
+SAT,San Antonio International Airport,TX,USA
+SLC,Salt Lake City,UT,USA
+BTV,Burlington,VT,USA
+MPV,Montpelier,VT,USA
+RUT,Rutland,VT,USA
+PHF,Newport News,VA,USA
+ORF,Norfolk,VA,USA
+RIC,Richmond,VA,USA
+ROA,Roanoke,VA,USA
+PSC,Pasco/Tri-Cities Airport,WA,USA
+SEA,Seattle Tacoma International Airport,WA,USA
+GEG,Spokane International Airport,WA,USA
+CRW,Charleston,WV,USA
+CKB,Clarksburg,WV,USA
+HTS,Huntington Tri-State Airport,WV,USA
+GRB,Green Bay,WI,USA
+MSN,Madison,WI,USA
+MKE,Milwaukee,WI,USA
+CPR,Casper,WY,USA
+CYS,Cheyenne,WY,USA
+JAC,Jackson Hole,WY,USA
+RKS,Rock Springs,WY,USA
