@@ -103,22 +103,47 @@ if option == "1. View Flight Passenger Roster":
 
 elif option == "2. Book a New Flight":
     st.subheader("Book a New Flight")
+    st.markdown("If the passenger is new, we will automatically register them!")
+    
     with st.form("booking_form"):
         passport = st.text_input("Passenger Passport Number:").strip().upper()
-        flight = st.text_input("Flight Number:").strip().upper()
+        name = st.text_input("Passenger Name (Required for new passengers):").strip()
+        phone = st.text_input("Passenger Phone (Required for new passengers):").strip()
+        flight = st.text_input("Flight Number (e.g., DL1234):").strip().upper()
         seat = st.text_input("Seat Number (e.g., 12A):").strip().upper()
         submit = st.form_submit_button("Confirm Booking")
 
         if submit:
-            try:
-                with engine.begin() as conn:
-                    conn.execute(
-                        text("INSERT INTO Booking (PassportNum, FlightNum, SeatNum) VALUES (:passport, :flight, :seat)"),
-                        {"passport": passport, "flight": flight, "seat": seat},
-                    )
-                st.success("✅ Booking successfully confirmed!")
-            except Exception as e:
-                st.error(f"❌ Booking failed. Please ensure Passport and Flight exist. Error: {e}")
+            if not passport or not flight or not seat:
+                st.error("Passport, Flight, and Seat are strictly required.")
+            else:
+                try:
+                    with engine.begin() as conn:
+                        existing_passenger = conn.execute(
+                            text("SELECT PassportNum FROM Passenger WHERE PassportNum = :passport"),
+                            {"passport": passport},
+                        ).fetchone()
+
+                        if not existing_passenger:
+                            if not name:
+                                st.error("This is a new passport number! Please provide a Passenger Name to register them.")
+                                st.stop()
+
+                            conn.execute(
+                                text("INSERT INTO Passenger (PassportNum, Name, Phone) VALUES (:passport, :name, :phone)"),
+                                {"passport": passport, "name": name, "phone": phone},
+                            )
+                            st.info(f"Registered new passenger: {name}")
+
+                        conn.execute(
+                            text("INSERT INTO Booking (PassportNum, FlightNum, SeatNum) VALUES (:passport, :flight, :seat)"),
+                            {"passport": passport, "flight": flight, "seat": seat},
+                        )
+
+                    st.success("✅ Booking successfully confirmed!")
+                    
+                except Exception as e:
+                    st.error(f"❌ Booking failed. Error: {e}")
 
 elif option == "3. Busiest Airports":
     st.subheader("Top Busiest Airports (By Passenger Traffic)")
