@@ -54,7 +54,7 @@ if engine is None:
 
 st.set_page_config(page_title="AM Airlines Management System", page_icon="✈️", layout="wide")
 st.title("AM Airlines Management System")
-st.markdown("Welcome to the Flight Management Dashboard.")
+st.markdown("Welcome to the Flight Management Dashboard!")
 
 
 st.sidebar.header("Navigation Menu")
@@ -80,6 +80,7 @@ def run_query(query, params=None):
 
 if option == "1. View Flight Passenger Roster":
     st.subheader("Flight Passenger Roster")
+    st.markdown("Select a flight to view its passenger roster, including names, phone numbers, and seat assignments.")
     
     try:
         with engine.connect() as conn:
@@ -145,6 +146,7 @@ elif option == "2. Book a New Flight":
 
 elif option == "3. Busiest Airports":
     st.subheader("Top Busiest Airports (By Passenger Traffic)")
+    st.markdown("Discover which airports are the busiest based on the total number of passengers transiting through them. You can adjust how many top airports to display.")
     limit_num = st.number_input("How many top airports do you want to see?", min_value=1, max_value=50, value=5, step=1)
     if st.button("Load Statistics"):
         query = """
@@ -163,7 +165,7 @@ elif option == "3. Busiest Airports":
 
 elif option == "4. Retrieve Flight Manifest":
     st.subheader("Full Flight Manifest")
-    
+    st.markdown("Select a flight to retrieve its full manifest, including both passengers and employees assigned to that flight.")
     try:
         with engine.connect() as conn:
             result = conn.execute(text("SELECT DISTINCT flightnum FROM flight ORDER BY flightnum"))
@@ -190,13 +192,22 @@ elif option == "4. Retrieve Flight Manifest":
 
 elif option == "5. Airline Fleet Statistics":
     st.subheader("Airline Fleet Statistics")
+    st.markdown("View statistics about each airline's fleet, including the total number of flights they operate and the average capacity of their planes. This can help you understand which airlines have the largest operations and the types of aircraft they use.")
     if st.button("Load Fleet Data"):
         query = """
             SELECT al.Name as "Airline", 
                    COUNT(f.FlightNum) as "Total Flights",
-                   ROUND((SELECT AVG(Capacity) FROM Aircraft ac JOIN Flight f2 ON ac.TailNum = f2.TailNum WHERE f2.AirlineCode = al.AirlineCode), 1) as "Avg Plane Capacity"
+                   ROUND(AVG(ac.Capacity), 1) as "Avg Plane Capacity",
+                   (SELECT ac2.Model 
+                    FROM Aircraft ac2 
+                    JOIN Flight f2 ON ac2.TailNum = f2.TailNum 
+                    WHERE f2.AirlineCode = al.AirlineCode 
+                    GROUP BY ac2.Model 
+                    ORDER BY COUNT(f2.FlightNum) DESC 
+                    LIMIT 1) as "Most Common Aircraft"
             FROM Airline al
             JOIN Flight f ON al.AirlineCode = f.AirlineCode
+            JOIN Aircraft ac ON f.TailNum = ac.TailNum
             GROUP BY al.Name, al.AirlineCode
             ORDER BY "Total Flights" DESC;
         """
