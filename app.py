@@ -66,7 +66,8 @@ option = st.sidebar.radio(
      "2. Book a New Flight", 
      "3. Busiest Airports", 
      "4. Retrieve Flight Manifest", 
-     "5. Airline Fleet Statistics",)
+     "5. Airline Fleet Statistics",
+     "6. Cancel a Booking")
 )
 
 def run_query(query, params=None):
@@ -120,18 +121,20 @@ elif option == "2. Book a New Flight":
                 st.error(f"❌ Booking failed. Please ensure Passport and Flight exist. Error: {e}")
 
 elif option == "3. Busiest Airports":
-    st.subheader("📊 Top 5 Busiest Airports (By Passenger Traffic)")
+    st.subheader("Top Busiest Airports (By Passenger Traffic)")
+    limit_num = st.number_input("How many top airports do you want to see?", min_value=1, max_value=50, value=5, step=1)
     if st.button("Load Statistics"):
         query = """
             SELECT a.IATACode as "Airport Code", 
-                   a.City, 
+                   a.City as "City",
+                   a.State as "State", 
                    COUNT(b.PassportNum) as "Total Transiting Passengers"
             FROM Airport a
             JOIN Flight f ON a.IATACode = f.OriginCode OR a.IATACode = f.DestCode
             JOIN Booking b ON f.FlightNum = b.FlightNum
-            GROUP BY a.IATACode, a.City
+            GROUP BY a.IATACode, a.City, a.State
             ORDER BY "Total Transiting Passengers" DESC
-            LIMIT 5;
+            LIMIT """ + str(int(limit_num)) + """;
         """
         run_query(query)
 
@@ -147,12 +150,12 @@ elif option == "4. Retrieve Flight Manifest":
         flight_num = st.selectbox("Select Flight Number for Full Manifest:", flight_numbers['flightnum'].tolist())
         if st.button("Generate Manifest"):
             query = """
-                SELECT p.Name, 'Passenger' as Role
+                SELECT p.Name as "Name", 'Passenger' as Role
                 FROM Passenger p
                 JOIN Booking b ON p.PassportNum = b.PassportNum
                 WHERE b.FlightNum = :flight_num
                 UNION
-                SELECT e.Name, e.Role
+                SELECT e.Name as "Name", e.Role as "Role"
                 FROM Employee e
                 JOIN Staffing s ON e.EmployeeID = s.EmployeeID
                 WHERE s.FlightNum = :flight_num
@@ -175,3 +178,30 @@ elif option == "5. Airline Fleet Statistics":
             ORDER BY "Total Flights" DESC;
         """
         run_query(query)
+
+elif option == "6. Cancel a Booking":
+    st.subheader("Cancel a Booking")
+    st.markdown("Enter the details of the booking you wish to remove.")
+    
+    with st.form("cancel_form"):
+        passport = st.text_input("Passenger Passport Number:").strip().upper()
+        flight = st.text_input("Flight Number (e.g., DL1234):").strip().upper()
+        submit = st.form_submit_button("Cancel Booking")
+
+        if submit:
+            if not passport or not flight:
+                st.error("Please fill in both fields.")
+            else:
+                try:
+                    with engine.begin() as conn:
+                        result = conn.execute(
+                            text("DELETE FROM Booking WHERE PassportNum = :passport AND FlightNum = :flight"),
+                            {"passport": passport, "flight": flight},
+                        )
+
+                    if result.rowcount and result.rowcount > 0:
+                        st.success(f"✅ Booking for Passport {passport} on Flight {flight} has been successfully canceled!")
+                    else:
+                        st.warning("⚠️ No matching booking found. Please check the Passport and Flight numbers.")
+                except Exception as e:
+                    st.error(f"❌ Error canceling booking: {e}")
